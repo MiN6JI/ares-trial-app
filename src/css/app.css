@@ -1,0 +1,89 @@
+/* FONTS */
+
+
+:root{
+  --primary : #00A653;
+  --secondary : #303094;
+  --accent : #fcb040;
+  --base : 1rem;
+}
+
+/* HTML & BODY */
+
+
+/* TAGS */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary);
+
+}
+
+p {
+  font-size: var(--base);
+}
+
+/* UTILITIES */
+.w-full { width: 100%; }
+
+.container { width: 100%; max-width: 1140px; margin: 0 auto;}
+
+/* Page : Login, Registration, Forgot Password */
+.bg-auth{
+  background: url('../assets/bg-login.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-auth .q-form {
+  width: 100%;
+}
+
+.form-auth{
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 0.75rem;
+}
+
+
+/* Sidebar */
+.sidebar {
+  background-color: var(--secondary);
+  color: #fff;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  margin: 0 auto;
+  font-size: 28px;
+}
+
+
+/* Utility */
+
+.br-2 { border-radius: 0.5rem;}
+.br-4 { border-radius: 1rem;}
