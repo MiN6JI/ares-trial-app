@@ -1,20 +1,18 @@
 <template>
-  <q-page class="q-mt-md">
-
+  <q-page class="q-mt-lg">
     <div class="row flex items-center q-mx-md q-gutter-md">
-        <q-icon size="30px" name="corporate_fare" color="primary" />
-        <div class="col">
-          <div class="text-h5">Insititutes</div>
-          <div class="text-caption" style="color: #B2B2B2;">Get the Best Medical Care</div>
-        </div>
-        <div v-if="!showAll">
+      <q-icon size="30px" name="delete_sweep" color="primary" />
+      <div class="col">
+        <div class="text-h5">Trash</div>
+      </div>
+      <div v-if="!showAll">
           <q-btn flat text-color="primary" no-caps label="See All" @click="showAll = true" />
       </div>
+    </div>
 
-
-  </div>
     <q-list class="q-ma-md" style="background-color: white;">
-      <q-item class="q-my-md" style="border: 1px solid #DBDFEA; border-radius: 10px;" v-for="item in showAll ? instituteList : instituteList.slice(0, 3)" :key="item.id" clickable v-ripple @click="goToItem(item.id)">
+      <template v-if="instituteTrashList && instituteTrashList.length">
+      <q-item class="q-my-md" style="border: 1px solid #DBDFEA; border-radius: 10px;" v-for="item in showAll ? instituteTrashList : instituteTrashList.slice(0, 3)" :key="item.id" clickable v-ripple @click="goToItem(item.id)">
           <q-item-section avatar>
             <q-avatar color="grey-2" size="60px" text-color="primary" >
               {{ item.name.substring(0, 1) }}
@@ -33,16 +31,15 @@
               <q-icon name="arrow_forward" size="20px" color="primary" />
             </q-item-section>
         </q-item>
+        </template>
+        <template v-else>
+        <q-item>
+          <q-item-section>
+            <q-item-label>The trash is empty</q-item-label>
+          </q-item-section>
+        </q-item>
+      </template>
     </q-list>
-
-    <Trash class="q-my-md"/>
-
-
-
-    <!-- <pre>{{ instituteList }}</pre> -->
-    <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-btn fab icon="add" color="primary" to="/app/institutes/create" />
-    </q-page-sticky>
   </q-page>
 </template>
 
@@ -51,23 +48,18 @@ import { ref } from "vue";
 import { api } from "boot/axios";
 import { Loading } from "quasar";
 
-import Trash from "src/pages/institutes/TrashList.vue"
-
 export default {
-  components:{
-    Trash
-  },
   data() {
     return{
       fab1: ref(false),
-      instituteList: [],
+      instituteTrashList: [],
       showAll: false
     }
   },
   mounted() { // Changed from "onMounted"
     Loading.show();
-    api.get("/manage/institutes").then((response) => {
-      this.instituteList = response.data; // Changed from "cuisineList.value"
+    api.get("/manage/institutes/trash").then((response) => {
+      this.instituteTrashList = response.data; // Changed from "cuisineList.value"
       Loading.hide();
     });
   },
